@@ -6,62 +6,62 @@
  */
 window.BRAND_CONFIG = {
   // ─── Core Identity ───────────────────────────────
-  name: "Nova Star",
-  websiteName: "Nova Star",
-  brandName: "Nova Star",
+  name: "ABOUT:ARCHIVE",
+  websiteName: "ABOUT:ARCHIVE",
+  brandName: "ABOUT:ARCHIVE",
   logoText: "", // Text-based logo fallback if no image
 
   // ─── SEO & Metadata ─────────────────────────────
-  seoTitle: "Nova Star | Premium Streetwear Template",
-  metaDescription: "Premium streetwear template for modern brands. Clean, futuristic design ready for your next fashion venture. Discover Nova Star.",
-  ogTitle: "Nova Star | Premium Streetwear Template",
-  ogDescription: "A ready-to-sell premium streetwear template. Built for the next generation of fashion brands.",
-  ogImage: "https://www.image2url.com/r2/default/images/1781966361497-541646a5-804b-4106-bedf-525bf1cc42e5.png",
-  ogUrl: "https://novastartemplate.com",
-  twitterHandle: "@novastartemplate",
+  seoTitle: "ABOUT:ARCHIVE | Luxury Futuristic Streetwear",
+  metaDescription: "Redefining urban luxury through bold design, premium craftsmanship, and a vision born for the next era. Discover ABOUT:ARCHIVE.",
+  ogTitle: "ABOUT:ARCHIVE | Luxury Streetwear",
+  ogDescription: "Pioneering the future of Algerian streetwear. Built for those who refuse to stay in the shadows.",
+  ogImage: "https://www.image2url.com/r2/default/images/1781946740849-b2f68831-885b-4ad4-bc5c-ce779e08f796.jpg",
+  ogUrl: "https://aboutarchive.com",
+  twitterHandle: "@about____archive",
 
   // ─── Visual Identity ─────────────────────────────
-  pageTitle: "Nova Star | Premium Streetwear Template",
-  logoUrl: "/logo.png",
-  logoAlt: "Nova Star logo",
+  pageTitle: "ABOUT:ARCHIVE | Luxury Streetwear",
+  logoUrl: "https://www.image2url.com/r2/default/images/1781946740849-b2f68831-885b-4ad4-bc5c-ce779e08f796.jpg",
+  logoAlt: "ABOUT:ARCHIVE logo",
 
   // ─── Hero Section ────────────────────────────────
   hero: {
-    badge: "EST. 2026 / TEMPLATE",
+    badge: "EST. 2026 / ALGERIA",
     backgroundImage: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=85&w=1920",
     titleLine1: "FUTURE OF",
     titleLine2: "STREETWEAR",
-    subtitle: "A premium streetwear template redefining urban luxury through bold design and modern craftsmanship."
+    subtitle: "Redefining urban luxury through bold design, premium craftsmanship, and a vision born for the next era."
   },
 
   // ─── Social Links ──────────────────────────────
   social: {
-    instagram: "#",
-    tiktok: "#",
+    instagram: "https://www.instagram.com/about____archive/",
+    tiktok: "https://www.tiktok.com/@about__archive",
     whatsapp: ""
   },
 
   // ─── Contact & Location ─────────────────────────
-  contactEmail: "hello@novastartemplate.com",
+  contactEmail: "contact@aboutarchive.com",
   phone: "",
-  location: "Template Studio",
+  location: "Algiers, Algeria",
 
   // ─── About Section ──────────────────────────────
   about: {
-    title: "MORE THAN A TEMPLATE.<br><span class=\"accent\">A FOUNDATION.</span>",
-    text: "Nova Star is a premium streetwear template built for modern brands. Featuring a complete shop, wishlist, cart, and admin system — ready for your next fashion venture."
+    title: "MORE THAN A BRAND. A MOVEMENT.",
+    text: "Born in the heart of urban Algiers, ABOUT:ARCHIVE merges avant-garde design with raw street culture. We don't just follow trends—we redefine them for the next generation."
   },
 
   // ─── Footer ──────────────────────────────────────
   footer: {
-    description: "A premium streetwear template for modern brands. Built for those ready to launch their vision.",
-    copyright: "© 2026 NOVA STAR TEMPLATE. ALL RIGHTS RESERVED.",
+    description: "Pioneering the future of Algerian streetwear. Built for those who refuse to stay in the shadows.",
+    copyright: "© 2026 ABOUT:ARCHIVE BOUTIQUE ONLINE. ALL RIGHTS RESERVED.",
     designerName: "SEHABI ISSAM",
     designerUrl: "https://sehabiissam.github.io/sehabiissam-portfolio/leon.html"
   },
 
   // ─── System ──────────────────────────────────────
-  storageKeyPrefix: "novastar-store",
+  storageKeyPrefix: "about-archive-store",
   currency: {
     code: "DZD",
     label: "Algerian Dinar"

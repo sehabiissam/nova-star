@@ -1,5 +1,5 @@
 ﻿/**
- * Nova Star Newsletter Cloud Functions
+ * ABOUT:ARCHIVE Newsletter Cloud Functions
  * 
  * Trigger: When a NEW product is created in the "products" collection,
  * this function sends an email notification to all newsletter subscribers.
@@ -8,7 +8,7 @@
  * 
  * To deploy:
  *   1. Set Resend API key: firebase functions:config:set resend.api_key="re_YOUR_RESEND_API_KEY"
- *   2. Set sender email: firebase functions:config:set resend.from_email="noreply@novastartemplate.com"
+ *   2. Set sender email: firebase functions:config:set resend.from_email="noreply@aboutarchive.com"
  *   3. npm install
  *   4. firebase deploy --only functions
  */
@@ -21,9 +21,9 @@ admin.initializeApp();
 
 // Configure Resend with API key from Firebase config
 const RESEND_API_KEY = functions.config().resend?.api_key;
-const FROM_EMAIL = functions.config().resend?.from_email || "noreply@novastartemplate.com";
-const STORE_NAME = functions.config().store?.name || "Nova Star";
-const STORE_URL = functions.config().store?.url || "https://novastartemplate.com";
+const FROM_EMAIL = functions.config().resend?.from_email || "noreply@aboutarchive.com";
+const STORE_NAME = functions.config().store?.name || "ABOUT:ARCHIVE";
+const STORE_URL = functions.config().store?.url || "https://aboutarchive.com";
 const CURRENCY_CODE = functions.config().store?.currency || "DZD";
 
 let resend = null;
