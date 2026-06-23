@@ -1,0 +1,6 @@
+﻿{
+  "name": "ABOUT:ARCHIVE | Luxury Streetwear",
+  "description": "A reusable ecommerce kiosk template for bold streetwear brands — modular shop, wishlist, cart, and admin commerce features.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

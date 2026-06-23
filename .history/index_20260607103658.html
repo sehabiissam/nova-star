@@ -1,0 +1,1329 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FKstore16 | Luxury Streetwear</title>
+    <meta name="loaderio" content="loaderio-1cf841f9393eb5eb901afaacd7b43506" />
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;700&family=Inter:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- App Loading Overlay -->
+    <div id="app-loading"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease, visibility 0.5s ease;">
+        <img src="https://www.image2url.com/r2/default/images/1780823718513-f2076ca3-428b-4a7c-a9cf-171f39aeee12.jpg" alt="FKstore16"
+            class="loading-logo logo-img"
+            style="max-height: 110px; margin-bottom: 2rem; filter: drop-shadow(0 0 15px rgba(255,255,255,0.4));">
+        <div class="loading-bar-container"
+            style="width: 200px; height: 1px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden;">
+            <div class="loading-bar-progress"
+                style="position: absolute; top: 0; left: 0; height: 100%; background: var(--accent, #a855f7); width: 30%; animation: loading-slide 2s infinite ease-in-out;">
+            </div>
+        </div>
+        <p
+            style="margin-top: 1.5rem; font-family: 'Space Grotesk', sans-serif; font-size: 0.7rem; letter-spacing: 0.3em; color: rgba(255,255,255,0.4);">
+            LOADING</p>
+    </div>
+
+    <!-- Background Canvas for Particles -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="#home" class="nav-logo">
+                <img src="https://www.image2url.com/r2/default/images/1780823718513-f2076ca3-428b-4a7c-a9cf-171f39aeee12.jpg"
+                    alt="FKstore16" class="logo-img">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#shop">SHOP</a></li>
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#reviews">REVIEWS</a></li>
+            </ul>
+            <div class="nav-actions">
+                <!-- Expandable Search Bar -->
+                <div class="navbar-search">
+                    <button class="search-icon-btn" aria-label="Search" aria-expanded="false">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <div class="search-input-wrapper">
+                        <input type="text" class="navbar-search-input" placeholder="Search products..."
+                            aria-label="Search products" autocomplete="off">
+                    </div>
+                </div>
+
+                <a href="https://www.instagram.com/fk_store16/" target="_blank" rel="noopener noreferrer" class="icon-btn"
+                    aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.tiktok.com/@fkstore.16" target="_blank" rel="noopener noreferrer" class="icon-btn"
+                    aria-label="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+                <a href="#wishlist" class="icon-btn" aria-label="Wishlist">
+                    <i class="fa-regular fa-heart"></i>
+                    <span class="wishlist-count" id="wishlist-badge">0</span>
+                </a>
+                <button class="icon-btn cart-trigger" aria-label="Cart">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="cart-count">0</span>
+                </button>
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle icon-btn" id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fa-solid fa-sun theme-icon-sun"></i>
+                    <i class="fa-solid fa-moon theme-icon-moon"></i>
+                </button>
+            </div>
+            <div class="mobile-toggle" id="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Premium Mobile Menu Drawer -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-glass"></div>
+        <div class="mobile-menu-header">
+            <img src="https://www.image2url.com/r2/default/images/1780823718513-f2076ca3-428b-4a7c-a9cf-171f39aeee12.jpg" alt="FKstore16" class="mobile-menu-logo logo-img">
+            <button class="menu-close" id="menu-close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-content">
+            <ul class="mobile-nav-links">
+                <li><a href="#home" class="mobile-nav-link"><i class="fa-solid fa-house"></i> HOME</a></li>
+                <li><a href="#shop" class="mobile-nav-link"><i class="fa-solid fa-store"></i> SHOP</a></li>
+                <li><a href="#wishlist" class="mobile-nav-link"><i class="fa-regular fa-heart"></i> WISHLIST</a></li>
+                <li><a href="#about" class="mobile-nav-link"><i class="fa-solid fa-info-circle"></i> ABOUT</a></li>
+                <li><a href="#reviews" class="mobile-nav-link"><i class="fa-solid fa-star"></i> REVIEWS</a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <button class="mobile-theme-btn" id="mobile-theme-btn">
+                    <i class="fa-solid fa-circle-half-stroke"></i>
+                    <span>SWITCH THEME</span>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu-brand">
+            <span>FKstore16 &copy; 2026</span>
+            <span>DESIGNED FOR THE FUTURE</span>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=85&w=1920" 
+                 alt="FKstore16 Collection" 
+                 class="hero-bg-image">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-layout">
+                <div class="hero-badge">
+                    <span class="hero-badge-line"></span>
+                    <span class="hero-badge-text">EST. 2026 / ALGERIA</span>
+                    <span class="hero-badge-line"></span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="hero-title-line">FUTURE OF</span>
+                    <span class="hero-title-line">STREETWEAR</span>
+                </h1>
+                <p class="hero-subtitle">Redefining urban luxury through bold design, premium craftsmanship, and a vision born for the next era.</p>
+                <div class="hero-cta-group">
+                    <a href="#shop" class="hero-btn hero-btn-primary">
+                        <span>SHOP COLLECTION</span>
+                        <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                    <a href="#about" class="hero-btn hero-btn-outline">
+                        <span>EXPLORE</span>
+                        <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-num">2026</span>
+                        <span class="hero-stat-label">ESTABLISHED</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-num">24/7</span>
+                        <span class="hero-stat-label">SUPPORT</span>
+                    </div>
+                    <div class="hero-stat-divider"></div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-num">DZ</span>
+                        <span class="hero-stat-label">ORIGIN</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <span class="hero-scroll-text">SCROLL</span>
+            <div class="hero-scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Trust Features -->
+    <section class="features" id="features">
+        <div class="container features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                <h3>FAST DELIVERY</h3>
+                <p>Express shipping across all Algeria.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-gem"></i></div>
+                <h3>PREMIUM QUALITY</h3>
+                <p>High-end materials & stitching.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>SECURE PAYMENT</h3>
+                <p>100% safe checkout process.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="featured" class="collection section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">RECOMMENDED <span class="accent">PRODUCTS</span></h2>
+                <p class="section-desc">Curated picks from our collection. Hand-selected for you.</p>
+            </div>
+            <div class="product-grid">
+                <!-- Products rendered dynamically by renderStore() -->
+            </div>
+            <div style="text-align: center; margin-top: 4rem;">
+                <a href="#shop" class="btn btn-outline">VIEW ALL DROPS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product View Page -->
+    <section id="product-view" class="product-view-section section view">
+        <div class="container">
+            <div class="product-view-layout" id="product-view-layout">
+                <!-- Dynamically rendered product detail -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop / Collections -->
+    <section id="shop" class="collection section view">
+        <div class="shop-layout">
+            <div class="section-header-full">
+                <h2 class="section-title">FULL <span class="accent">CATALOG</span></h2>
+                <p class="section-desc">Handcrafted streetwear essentials for the modern pioneer.</p>
+            </div>
+
+            <!-- Shop Main Layout: Sidebar + Content -->
+            <div class="shop-main-grid">
+                <!-- LEFT SIDEBAR - Filter Panel -->
+                <aside class="shop-sidebar" id="shop-sidebar">
+                    <div class="sidebar-toggle-wrapper">
+                        <button class="sidebar-toggle-btn" id="sidebar-toggle-btn">
+                            <i class="fa-solid fa-sliders"></i> FILTERS
+                        </button>
+                    </div>
+                    <div class="product-filter-bar" id="product-filter-bar" aria-label="Product category filter">
+                        <div class="filter-panel">
+                            <div class="filter-panel-header">
+                                <div>
+                                    <span class="filter-panel-tag">FILTERS</span>
+                                </div>
+                                <button type="button" class="sidebar-close-btn"
+                                    aria-label="Close filters">&times;</button>
+                            </div>
+                            <div class="filter-section">
+                                <h4>Categories</h4>
+                                <div class="filter-items"></div>
+                            </div>
+                            <!-- PRICE RANGE SECTION -->
+                            <div class="filter-section">
+                                <h4>PRICE RANGE</h4>
+                                <div class="price-slider-container">
+                                    <input type="range" id="price-slider" class="price-slider" min="0" max="50000"
+                                        value="50000">
+                                    <div class="price-display">
+                                        <span class="price-min">0 DA</span>
+                                        <span class="price-max"><span id="price-value">50,000</span>+ DA</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- COLOR SECTION -->
+                            
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- RIGHT CONTENT AREA -->
+                <div class="shop-content-area">
+                    <!-- TOP CONTROLS BAR -->
+                    <div class="shop-controls" id="shop-controls">
+                        <!-- MOBILE FILTER/SORT BUTTONS (Hidden on desktop) -->
+                        <div class="mobile-controls" id="mobile-controls">
+                            <button type="button" class="mobile-control-btn mobile-filter-btn" id="mobile-filter-btn" aria-label="Open filters">
+                                <i class="fa-solid fa-sliders"></i> FILTER
+                            </button>
+                            <button type="button" class="mobile-control-btn mobile-sort-btn" id="mobile-sort-btn" aria-label="Open sort options">
+                                <i class="fa-solid fa-arrow-up-down"></i> SORT
+                            </button>
+                        </div>
+                        <div class="shop-controls-left">
+                            <!-- PREMIUM SEARCH BAR -->
+                            <div class="premium-search-bar">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="shop-search-input" class="search-input"
+                                    placeholder="Search products..." autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="shop-controls-right">
+                            <select id="sort-select" class="shop-sort-select" aria-label="Sort products">
+                                <option value="featured">Featured</option>
+                                <option value="newest">Newest</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="popularity">Most Popular</option>
+                            </select>
+
+                            <div class="view-toggle" role="tablist" aria-label="View options">
+                                <button type="button" class="view-btn grid-view active" data-view="grid"
+                                    aria-pressed="true" title="Grid view"><i class="fa-solid fa-grip"></i></button>
+                                <button type="button" class="view-btn list-view" data-view="list" aria-pressed="false"
+                                    title="List view"><i class="fa-solid fa-list"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PRODUCTS GRID -->
+                    <div class="product-grid" id="products-grid">
+                        <!-- Products rendered dynamically by renderStore() -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOBILE FILTER BOTTOM SHEET -->
+        <div class="mobile-bottom-sheet" id="mobile-filter-sheet" aria-hidden="true" aria-label="Filter options">
+            <div class="bottom-sheet-overlay" id="filter-sheet-overlay"></div>
+            <div class="bottom-sheet-content">
+                <div class="bottom-sheet-header">
+                    <h3>FILTERS</h3>
+                    <button type="button" class="bottom-sheet-close" id="close-filter-sheet" aria-label="Close filters">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="bottom-sheet-body">
+                    <!-- CATEGORIES -->
+                    <div class="mobile-filter-section">
+                        <h4>CATEGORIES</h4>
+                        <div class="mobile-filter-items" id="mobile-categories-list">
+                            <!-- Categories rendered dynamically -->
+                        </div>
+                    </div>
+                    <!-- PRICE RANGE -->
+                    <div class="mobile-filter-section">
+                        <h4>PRICE RANGE</h4>
+                        <div class="mobile-price-slider-container">
+                            <input type="range" id="mobile-price-slider" class="mobile-price-slider" min="0" max="50000" value="50000">
+                            <div class="mobile-price-display">
+                                <span class="mobile-price-min">0 DA</span>
+                                <span class="mobile-price-max"><span id="mobile-price-value">50,000</span>+ DA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-sheet-footer">
+                    <button type="button" class="btn btn-primary btn-full" id="apply-mobile-filters">APPLY FILTERS</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOBILE SORT BOTTOM SHEET -->
+        <div class="mobile-bottom-sheet" id="mobile-sort-sheet" aria-hidden="true" aria-label="Sort options">
+            <div class="bottom-sheet-overlay" id="sort-sheet-overlay"></div>
+            <div class="bottom-sheet-content">
+                <div class="bottom-sheet-header">
+                    <h3>SORT BY</h3>
+                    <button type="button" class="bottom-sheet-close" id="close-sort-sheet" aria-label="Close sort options">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div class="bottom-sheet-body">
+                    <div class="mobile-sort-options">
+                        <button type="button" class="mobile-sort-option" data-sort="featured">
+                            <span>Featured</span>
+                            <i class="fa-solid fa-check" style="display: none;"></i>
+                        </button>
+                        <button type="button" class="mobile-sort-option" data-sort="newest">
+                            <span>Newest</span>
+                            <i class="fa-solid fa-check" style="display: none;"></i>
+                        </button>
+                        <button type="button" class="mobile-sort-option" data-sort="price-low">
+                            <span>Price: Low to High</span>
+                            <i class="fa-solid fa-check" style="display: none;"></i>
+                        </button>
+                        <button type="button" class="mobile-sort-option" data-sort="price-high">
+                            <span>Price: High to Low</span>
+                            <i class="fa-solid fa-check" style="display: none;"></i>
+                        </button>
+                        <button type="button" class="mobile-sort-option" data-sort="popularity">
+                            <span>Most Popular</span>
+                            <i class="fa-solid fa-check" style="display: none;"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section id="cart" class="cart-view section view">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">YOUR <span class="accent">BAG</span></h2>
+                <p class="section-desc">Review your selection before checkout.</p>
+            </div>
+            <div class="cart-container">
+                <div class="cart-items" id="cart-items-list">
+                    <!-- Dynamic Cart Items -->
+                    <p class="empty-msg">YOUR BAG IS EMPTY. START EXPLORING.</p>
+                </div>
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span>SUBTOTAL</span>
+                        <span id="subtotal">0 DZD</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>DELIVERY</span>
+                        <span>500 DZD</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>TOTAL</span>
+                        <span id="total-price" class="accent">500 DZD</span>
+                    </div>
+                    <button class="btn btn-primary btn-full checkout-trigger">ORDER NOW</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkout-modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">SECURE <span class="accent">CHECKOUT</span></h2>
+                <p>Complete your order.</p>
+            </div>
+            <!-- Order Summary (shown for Buy Now) -->
+            <div id="checkout-order-summary" style="display: none; margin-bottom: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.06);">
+                <h3 style="font-size: 0.8rem; letter-spacing: 2px; color: var(--accent); margin-bottom: 1rem;">ORDER SUMMARY</h3>
+                <div id="checkout-summary-items"></div>
+                <div style="display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid rgba(255,255,255,0.08);">
+                    <span style="font-weight: 700;">TOTAL</span>
+                    <span id="checkout-summary-total" style="font-weight: 700; color: var(--accent);">0 DZD</span>
+                </div>
+            </div>
+            <form class="checkout-form" id="order-form">
+                <input type="hidden" id="checkout-type" value="cart">
+                <input type="hidden" id="checkout-product-id" value="">
+                <div class="form-group">
+                    <label>FULL NAME</label>
+                    <input type="text" id="checkout-name" placeholder="ENTER YOUR NAME" required>
+                </div>
+                <div class="form-group">
+                    <label>PHONE NUMBER</label>
+                    <input type="tel" id="checkout-phone" placeholder="05XX XX XX XX" required>
+                </div>
+                <div class="form-group">
+                    <label>WILAYA / STATE</label>
+                    <input type="text" id="checkout-wilaya" placeholder="E.G. ALGER, ORAN, CONSTANTINE" required>
+                </div>
+                <div class="form-group">
+                    <label>CITY / COMMUNE</label>
+                    <input type="text" id="checkout-city" placeholder="E.G. BAB EZZOUAR" required>
+                </div>
+                <div class="form-group">
+                    <label>ADDRESS</label>
+                    <textarea id="checkout-address" placeholder="STREET, BUILDING, APARTMENT NUMBER" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>NOTES (OPTIONAL)</label>
+                    <textarea id="checkout-notes" placeholder="SPECIAL INSTRUCTIONS FOR DELIVERY"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" id="checkout-submit-btn">CONFIRM ORDER</button>
+            </form>
+            <div class="order-success" id="order-success">
+                <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+                <h3>ORDER CONFIRMED</h3>
+                <p>Your order has been received. Expect a call for confirmation shortly.</p>
+                <button class="btn btn-outline btn-full back-to-shop">BACK TO SHOP</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reviews View -->
+    <section id="reviews" class="reviews-view section view">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">COMMUNITY <span class="accent">REVIEWS</span></h2>
+                <p class="section-desc">Real feedback from our community.</p>
+                <button class="btn btn-mini" id="write-review-btn" style="margin-top: 1.5rem;"><i
+                        class="fa-solid fa-pen-to-square"></i> LEAVE A REVIEW</button>
+            </div>
+
+            <div class="reviews-grid" id="public-reviews-list">
+                <!-- Published reviews will appear here -->
+                <p class="empty-msg">No reviews yet. Be the first to share your feedback.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Review Modal -->
+    <div class="modal-overlay" id="review-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="review-modal-close">&times;</button>
+            <div class="section-header">
+                <h2>SHARE <span class="accent">FEEDBACK</span></h2>
+                <p class="section-desc">Share your experience with us.</p>
+            </div>
+            <form id="review-form" class="checkout-form">
+                <div class="form-group">
+                    <label>NAME</label>
+                    <input type="text" id="rev-name" placeholder="YOUR NAME" required>
+                </div>
+                <div class="form-group">
+                    <label>AVATAR (OPTIONAL)</label>
+                    <div class="image-toggle-container"
+                        style="display: flex; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 8px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.1);">
+                        <button type="button" class="btn btn-mini rev-img-mode active" data-mode="none"
+                            style="flex: 1; font-size: 0.6rem; border: none; border-radius: 6px; padding: 8px;">NONE</button>
+                        <button type="button" class="btn btn-mini rev-img-mode" data-mode="upload"
+                            style="flex: 1; font-size: 0.6rem; border: none; border-radius: 6px; padding: 8px;">UPLOAD</button>
+                    </div>
+                    <div id="rev-img-upload-wrapper" style="display: none;">
+                        <input type="file" id="rev-avatar-file" accept="image/*"
+                            style="font-size: 0.7rem; color: rgba(255,255,255,0.4);">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>RATING</label>
+                    <div class="star-rating" id="star-input">
+                        <i class="fa-solid fa-star" data-rating="1"></i>
+                        <i class="fa-solid fa-star" data-rating="2"></i>
+                        <i class="fa-solid fa-star" data-rating="3"></i>
+                        <i class="fa-solid fa-star" data-rating="4"></i>
+                        <i class="fa-solid fa-star" data-rating="5"></i>
+                    </div>
+                    <input type="hidden" id="rev-rating" value="5">
+                </div>
+                <div class="form-group">
+                    <label>MESSAGE</label>
+                    <textarea id="rev-message" placeholder="YOUR REVIEW" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full" id="submit-review-btn">SUBMIT REVIEW</button>
+            </form>
+        </div>
+    </div>
+    <div class="modal-overlay" id="admin-gate-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="admin-modal-close">&times;</button>
+            <div class="section-header">
+                <div class="login-icon"><i class="fa-solid fa-lock"></i></div>
+                <h2 class="section-title">ADMIN <span class="accent">LOGIN</span></h2>
+                <p class="section-desc">Authentication required for system access.</p>
+            </div>
+            <form id="admin-login-form" class="checkout-form">
+                <div class="form-group">
+                    <label>ADMIN EMAIL</label>
+                    <input type="email" id="admin-email" placeholder="AUTHORIZED EMAIL" required>
+                </div>
+                <div class="form-group">
+                    <label>SYSTEM ACCESS KEY</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="admin-password" placeholder="ENCRYPTION KEY" required>
+                        <button type="button" class="password-toggle-btn" aria-label="Show password" tabindex="-1">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full"><i class="fa-solid fa-lock"></i> SYSTEM
+                    LOGIN</button>
+                <p id="login-error" class="error-msg"
+                    style="display: none; color: #ff4d4d; font-size: 0.7rem; margin-top: 1rem; text-align: center; font-weight: 700;">
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin View -->
+    <section id="admin" class="admin-view section view">
+        <!-- Admin Mobile Toggle -->
+        <div class="admin-mobile-nav-bar">
+            <button id="admin-sidebar-toggle" class="admin-sidebar-toggle">
+                <i class="fa-solid fa-bars-staggered"></i>
+                <span>SYSTEM MENU</span>
+            </button>
+            <div class="admin-status-indicator">
+                <span class="pulse"></span>
+                ONLINE
+            </div>
+        </div>
+
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <div class="container admin-container">
+            <aside class="admin-sidebar" id="admin-sidebar">
+                <button class="admin-sidebar-close" id="admin-sidebar-close">&times;</button>
+                <div class="admin-user">
+                    <div class="user-avatar"><i class="fa-solid fa-user-shield"></i></div>
+                    <div>
+                        <p class="user-name">ADMIN</p>
+                        <p class="user-role">SYSTEM OWNER</p>
+                    </div>
+                </div>
+                <nav class="admin-nav">
+                    <button class="admin-nav-btn active" data-tab="products"><i class="fa-solid fa-box"></i>
+                        PRODUCTS</button>
+                    <button class="admin-nav-btn" data-tab="orders"><i class="fa-solid fa-receipt"></i> ORDERS</button>
+                    <button class="admin-nav-btn" data-tab="categories"><i class="fa-solid fa-layer-group"></i>
+                        CATEGORIES</button>
+                    <button class="admin-nav-btn" data-tab="reviews"><i class="fa-solid fa-star"></i> REVIEWS</button>
+                    <button class="admin-nav-btn" data-tab="trash"><i class="fa-solid fa-trash-can"></i>
+                        TRASH</button>
+                    <button class="admin-nav-btn" data-tab="logs"><i class="fa-solid fa-clipboard-list"></i>
+                        LOGS</button>
+                    <button class="admin-nav-btn" data-tab="security"><i class="fa-solid fa-shield-halved"></i>
+                        SECURITY</button>
+                    <button class="admin-nav-btn logout-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        LOGOUT</button>
+                </nav>
+            </aside>
+
+            <main class="admin-main">
+                <!-- Products Tab -->
+                <div id="admin-products" class="admin-tab active">
+                    <div class="admin-header">
+                        <h2>PRODUCT <span class="accent">DATABASE</span></h2>
+                        <button class="btn btn-mini" id="add-product-trigger"><i class="fa-solid fa-plus"></i> ADD
+                            PRODUCT</button>
+                    </div>
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>IMG</th>
+                                    <th>NAME</th>
+                                    <th>CATEGORY</th>
+                                    <th>PRICE</th>
+                                    <th class="desktop-only">RECOMMENDED</th>
+                                    <th>ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-product-list">
+                                <!-- Dynamic Rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Orders Tab -->
+                <div id="admin-orders" class="admin-tab">
+                    <div class="admin-header">
+                        <h2>ORDER <span class="accent">LOGS</span></h2>
+                        <span class="orders-count-badge" id="orders-count-badge">0 ORDERS</span>
+                    </div>
+                    <!-- Compact Orders Container -->
+                    <div class="orders-compact-container" id="orders-compact-container">
+                        <!-- Dynamic compact order cards rendered here -->
+                    </div>
+                    <!-- Empty State -->
+                    <div class="orders-empty-state" id="orders-empty-state">
+                        <i class="fa-solid fa-receipt"></i>
+                        <p>NO ORDERS RECORDED.</p>
+                        <span>Orders will appear here once customers check out.</span>
+                    </div>
+                </div>
+
+                <!-- Categories Management Tab -->
+                <div id="admin-categories" class="admin-tab">
+                    <div class="admin-header">
+                        <h2>CATEGORY <span class="accent">MANAGEMENT</span></h2>
+                    </div>
+                    <p class="admin-note">Create and manage product categories. Deletion is blocked while products are
+                        still assigned to a category.</p>
+                    <form id="category-form" class="checkout-form" style="margin-bottom: 2rem;">
+                        <div class="form-group">
+                            <label>CATEGORY NAME</label>
+                            <input type="text" id="category-name" placeholder="E.G. HOODIE" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">CREATE CATEGORY</button>
+                    </form>
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>CATEGORY</th>
+                                    <th class="desktop-only">PRODUCTS</th>
+                                    <th>CREATED</th>
+                                    <th>ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-category-list">
+                                <tr>
+                                    <td colspan="4" style="text-align:center; opacity: 0.5; padding: 2rem;">NO
+                                        CATEGORIES CONFIGURED. ADD ONE TO START.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Reviews Management Tab -->
+                <div id="admin-reviews" class="admin-tab">
+                    <div class="admin-header">
+                        <h2>REVIEW <span class="accent">MANAGEMENT</span></h2>
+                        <span class="reviews-count-badge" id="reviews-count-badge">0 REVIEWS</span>
+                    </div>
+                    <div class="admin-reviews-controls">
+                        <button class="btn btn-mini" id="toggle-reviews-visibility-btn"><i class="fa-solid fa-eye"></i> TOGGLE SECTION VISIBILITY</button>
+                    </div>
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>USER</th>
+                                    <th>PRODUCT</th>
+                                    <th>RATING</th>
+                                    <th>REVIEW</th>
+                                    <th>DATE</th>
+                                    <th>STATUS</th>
+                                    <th>ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-reviews-list">
+                                <!-- Dynamic review rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Security Tab -->
+                <div id="admin-security" class="admin-tab">
+                    <div class="admin-header">
+                        <h2><i class="fa-solid fa-fingerprint"></i> SYSTEM <span class="accent">PROTECTION</span></h2>
+                    </div>
+                    <div class="security-card">
+                        <div class="security-info">
+                            <i class="fa-solid fa-shield-halved"
+                                style="font-size: 3rem; color: var(--accent); margin-bottom: 2rem; display: block;"></i>
+                            <h3 style="margin-bottom: 1rem;">FIREBASE SHIELD ACTIVE</h3>
+                            <p style="opacity: 0.7; line-height: 1.6;">Identity verification is now managed by Google
+                                Identity Platform & Firebase Auth. The current system command is locked to authorized
+                                agent emails only.</p>
+                            <p style="margin-top: 1rem; color: var(--accent); font-weight: 700;">AUTHORIZED AGENT:
+                                sehabiissam8@gmail.com</p>
+                        </div>
+                        <form id="security-update-form" class="checkout-form"
+                            style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem;">
+                            <p class="admin-note"
+                                style="margin-bottom: 1.5rem; color: var(--accent); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;">
+                                <i class="fa-solid fa-key"></i> UPDATE SYSTEM ACCESS KEY
+                            </p>
+                            <div class="form-group">
+                                <label>CURRENT ACCESS KEY</label>
+                                <div class="password-input-wrapper">
+                                    <input type="password" id="current-pass" placeholder="CONFIRM CURRENT KEY" required>
+                                    <button type="button" class="password-toggle-btn" aria-label="Show password" tabindex="-1">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>NEW ACCESS KEY</label>
+                                <div class="password-input-wrapper">
+                                    <input type="password" id="new-pass" placeholder="MIN 8 CHARACTERS" required
+                                        minlength="8">
+                                    <button type="button" class="password-toggle-btn" aria-label="Show password" tabindex="-1">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">EXECUTE ENCRYPTION UPDATE</button>
+                            <p id="security-update-msg"
+                                style="display: none; font-size: 0.7rem; margin-top: 1rem; text-align: center; font-weight: 700;">
+                            </p>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Logs Tab -->
+                <div id="admin-logs" class="admin-tab">
+                    <div class="admin-header">
+                        <h2>ACTIVITY <span class="accent">LOGS</span></h2>
+                        <button class="btn btn-mini"
+                            style="background: rgba(255, 77, 77, 0.1); color: #ff4d4d; border-color: rgba(255, 77, 77, 0.2);"
+                            onclick="promptDeleteAllLogs()"><i class="fa-solid fa-dumpster-fire"></i> DELETE ALL
+                            LOGS</button>
+                    </div>
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>PRODUCT</th>
+                                    <th>PRICE</th>
+                                    <th>DATE/TIME</th>
+                                    <th>STATUS</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-log-list">
+                                <!-- Dynamic Rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Trash Tab -->
+                <div id="admin-trash" class="admin-tab">
+                    <div class="admin-header">
+                        <h2>SYSTEM <span class="accent">RECOVERY</span></h2>
+                        <p class="admin-note"><i class="fa-solid fa-clock-rotate-left"></i> DELETED ITEMS ARE STORED HERE
+                            FOR 30 DAYS BEFORE PERMANENT REMOVAL.</p>
+                    </div>
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>IMG</th>
+                                    <th>NAME</th>
+                                    <th>PRICE</th>
+                                    <th>DELETED ON</th>
+                                    <th>ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-trash-list">
+                                <!-- Dynamic Rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Mobile Fullscreen Search Overlay -->
+    <div class="mobile-search-overlay" id="mobile-search-overlay" aria-hidden="true">
+        <div class="mobile-search-overlay-content">
+            <div class="mobile-search-header">
+                <h3>SEARCH</h3>
+                <button type="button" class="mobile-search-close" id="mobile-search-close" aria-label="Close search">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="mobile-search-body">
+                <div class="mobile-search-input-group">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" class="mobile-search-input" id="mobile-search-input"
+                        placeholder="Search products..." autocomplete="off" autocorrect="off" spellcheck="false">
+                </div>
+                <p class="mobile-search-hint">Type to search across the catalog...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Action Modal (Mobile only) -->
+    <div class="modal-overlay" id="product-action-modal">
+        <div class="modal-content modal-compact">
+            <button class="modal-close" id="product-action-close">&times;</button>
+            <div class="modal-header">
+                <div class="login-icon" style="color: var(--accent);"><i class="fa-solid fa-box"></i></div>
+                <h2 class="modal-title">PRODUCT <span class="accent">COMMAND</span></h2>
+                <p id="m-product-name" style="font-weight: 700; color: #fff; margin-top: 5px;"></p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 2rem;">
+                <button type="button" class="btn btn-primary btn-full" id="mobile-edit-btn">
+                    <i class="fa-solid fa-pen"></i> EDIT PRODUCT
+                </button>
+                <button type="button" class="btn btn-outline btn-full" id="mobile-delete-btn"
+                    style="color: #ff4d4d; border-color: rgba(255, 77, 77, 0.2);">
+                    <i class="fa-solid fa-trash-can"></i> MOVE TO TRASH
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Detail Modal -->
+    <div class="modal-overlay" id="category-detail-modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-header">
+                <div class="login-icon" style="color: var(--accent);"><i class="fa-solid fa-layer-group"></i></div>
+                <h2 class="modal-title">CATEGORY <span class="accent">DETAILS</span></h2>
+                <p id="category-detail-meta" style="opacity: 0.7; margin-top: 0.75rem;"></p>
+            </div>
+            <div id="category-detail-products" style="display: grid; gap: 1rem; max-height: 60vh; overflow-y: auto;">
+                <p style="opacity: 0.6; padding: 2rem; text-align: center;">SELECT A CATEGORY TO VIEW ITS PRODUCTS.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Category Confirmation Modal -->
+    <div class="modal-overlay" id="delete-category-modal">
+        <div class="modal-content modal-compact">
+            <button class="modal-close">&times;</button>
+            <div class="modal-header">
+                <div class="login-icon" style="color: #ff4d4d;"><i class="fa-solid fa-trash-can"></i></div>
+                <h2 class="modal-title">DELETE <span class="accent">CATEGORY?</span></h2>
+                <p id="delete-category-message" style="opacity: 0.7; margin-top: 0.75rem;">This action will remove the
+                    category only if no products are assigned.</p>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 2rem;">
+                <button type="button" class="btn btn-outline btn-full modal-close-btn">CANCEL</button>
+                <button type="button" class="btn btn-primary btn-full" id="confirm-delete-category-btn"
+                    style="background: #ff4d4d; border-color: #ff4d4d;">DELETE CATEGORY</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trash Action Modal (Mobile only) -->
+    <div class="modal-overlay" id="trash-action-modal">
+        <div class="modal-content modal-compact">
+            <button class="modal-close" id="trash-action-close">&times;</button>
+            <div class="modal-header">
+                <div class="login-icon" style="color: var(--accent);"><i class="fa-solid fa-toolbox"></i></div>
+                <h2 class="modal-title">TRASH <span class="accent">COMMAND</span></h2>
+                <p id="trash-item-title" style="font-weight: 700; color: #fff; margin-top: 5px;"></p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 2rem;">
+                <button type="button" class="btn btn-primary btn-full" id="mobile-restore-btn">
+                    <i class="fa-solid fa-rotate-left"></i> RESTORE ITEM
+                </button>
+                <button type="button" class="btn btn-outline btn-full" id="mobile-permanent-delete-btn"
+                    style="color: #ff4d4d; border-color: rgba(255, 77, 77, 0.2);">
+                    <i class="fa-solid fa-fire"></i> DELETE PERMANENTLY
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="delete-modal">
+        <div class="modal-content modal-compact">
+            <div class="modal-header">
+                <div class="login-icon" style="color: #ff4d4d;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <h2 class="modal-title">DELETE <span class="accent">PRODUCT?</span></h2>
+                <p>This action will move this product to the trash.</p>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 2rem;">
+                <button type="button" class="btn btn-outline btn-full modal-close-btn">CANCEL</button>
+                <button type="button" class="btn btn-primary btn-full" id="confirm-delete-btn"
+                    style="background: #ff4d4d; border-color: #ff4d4d;">DELETE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Permanent Wipe Modal -->
+    <div class="modal-overlay" id="wipe-modal">
+        <div class="modal-content modal-compact">
+            <div class="modal-header">
+                <div class="login-icon" style="color: #ff0000; filter: drop-shadow(0 0 10px #ff0000);"><i
+                        class="fa-solid fa-skull"></i></div>
+                <h2 class="modal-title">PERMANENT <span class="accent">DELETE?</span></h2>
+                <p>This will erase the product permanently. This action is irreversible.</p>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 2rem;">
+                <button type="button" class="btn btn-outline btn-full modal-close-btn">CANCEL</button>
+                <button type="button" class="btn btn-primary btn-full" id="confirm-wipe-btn"
+                    style="background: #ff0000; border-color: #ff0000; box-shadow: 0 0 15px rgba(255,0,0,0.4);">DELETE
+                    FOREVER</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete All Logs Modal -->
+    <div class="modal-overlay" id="delete-all-logs-modal">
+        <div class="modal-content modal-compact">
+            <div class="modal-header">
+                <div class="login-icon" style="color: #ff4d4d; filter: drop-shadow(0 0 10px #ff4d4d);"><i
+                        class="fa-solid fa-dumpster-fire"></i></div>
+                <h2 class="modal-title">PURGE <span class="accent">HISTORY?</span></h2>
+                <p>This will permanently erase all system activity logs. This action cannot be undone.</p>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 2rem;">
+                <button type="button" class="btn btn-outline btn-full modal-close-btn">CANCEL</button>
+                <button type="button" class="btn btn-primary btn-full" id="confirm-delete-all-logs-btn"
+                    style="background: #ff4d4d; border-color: #ff4d4d; box-shadow: 0 0 15px rgba(255, 77, 77, 0.4);">CONFIRM
+                    PURGE</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Detail Side Drawer -->
+    <div class="modal-overlay" id="order-detail-modal">
+        <div class="modal-content modal-side-drawer" id="order-detail-drawer">
+            <button class="modal-close" id="order-detail-close">&times;</button>
+            <div class="modal-header">
+                <div class="login-icon" style="color: var(--accent);"><i class="fa-solid fa-receipt"></i></div>
+                <h2 class="modal-title">ORDER <span class="accent">DETAILS</span></h2>
+                <p id="dt-order-id"
+                    style="font-family: var(--font-mono); font-size: 0.7rem; opacity: 0.5; margin-top: 5px;"></p>
+            </div>
+
+            <div class="order-detail-body"
+                style="margin-top: 2rem; max-height: 60vh; overflow-y: auto; padding-right: 10px;">
+                <div class="detail-section"
+                    style="margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1.5rem;">
+                    <h3 style="font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 1rem; color: var(--accent);">
+                        CUSTOMER DATA</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <label
+                                style="display: block; font-size: 0.6rem; opacity: 0.5; margin-bottom: 5px;">NAME</label>
+                            <p id="dt-customer-name" style="font-weight: 700;"></p>
+                        </div>
+                        <div>
+                            <label
+                                style="display: block; font-size: 0.6rem; opacity: 0.5; margin-bottom: 5px;">PHONE</label>
+                            <p id="dt-customer-phone" style="font-size: 0.8rem;"></p>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                        <div>
+                            <label
+                                style="display: block; font-size: 0.6rem; opacity: 0.5; margin-bottom: 5px;">WILAYA/CITY</label>
+                            <p id="dt-customer-location" style="font-weight: 700;"></p>
+                        </div>
+                        <div>
+                            <label
+                                style="display: block; font-size: 0.6rem; opacity: 0.5; margin-bottom: 5px;">STATUS</label>
+                            <div id="dt-order-status" class="status-badge">PENDING</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <label style="display: block; font-size: 0.6rem; opacity: 0.5; margin-bottom: 5px;">SHIPPING
+                            ADDRESS</label>
+                        <p id="dt-customer-address" style="font-size: 0.8rem; line-height: 1.4;"></p>
+                    </div>
+                    <div style="margin-top: 1rem; display: none;" id="dt-notes-wrapper">
+                        <label style="display: block; font-size: 0.6rem; opacity: 0.5; margin-bottom: 5px;">NOTES</label>
+                        <p id="dt-customer-notes" style="font-size: 0.8rem; font-style: italic; opacity: 0.7; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px;"></p>
+                    </div>
+                </div>
+
+                <div class="detail-section"
+                    style="margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 1.5rem;">
+                    <h3 style="font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 1rem; color: var(--accent);">
+                        ORDERED ITEMS</h3>
+                    <div id="dt-items-list" style="display: flex; flex-direction: column; gap: 10px;">
+                        <!-- Items will be injected here -->
+                    </div>
+                </div>
+
+                <div class="detail-section"
+                    style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem;">
+                    <div>
+                        <h3 style="font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 1rem; color: var(--accent);">
+                            DATE</h3>
+                        <p id="dt-order-date" style="font-size: 0.7rem; opacity: 0.5;"></p>
+                    </div>
+                    <div style="text-align: right;">
+                        <label style="display: block; font-size: 0.6rem; opacity: 0.5; margin-bottom: 5px;">TOTAL</label>
+                        <p id="dt-total-price"
+                            style="font-size: 1.5rem; font-weight: 800; font-family: var(--font-heading); color: var(--accent);">
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div style="margin-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
+                    <h3 style="font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 1rem; color: var(--accent);">ACTIONS</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;" id="order-status-controls">
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <button type="button" class="btn btn-outline btn-full" id="dt-delete-order-btn"
+                            style="color: #ff4d4d; border-color: rgba(255, 77, 77, 0.2);">
+                            <i class="fa-solid fa-trash-can"></i> DELETE ORDER
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Management Modal -->
+    <div class="modal-overlay" id="product-modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="product-modal-title">ADD <span class="accent">PRODUCT</span></h2>
+                <p>Register new gear into the FKstore16 ecosystem.</p>
+            </div>
+            <form class="checkout-form" id="product-form">
+                <input type="hidden" id="edit-id">
+                <div class="form-group">
+                    <label>PRODUCT NAME</label>
+                    <input type="text" id="p-name" placeholder="E.G. NOCTURNAL HOODIE" required>
+                </div>
+                <div class="form-group">
+                    <label>DESCRIPTION</label>
+                    <textarea id="p-description" placeholder="Enter product description..." style="font-family: var(--font-body); background: transparent; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; resize: vertical; min-height: 80px;" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label>CATEGORY</label>
+                    <select id="p-category" class="admin-select">
+                        <option value="HOODIE">HOODIE</option>
+                        <option value="T-SHIRT">T-SHIRT</option>
+                        <option value="BOTTOMS">BOTTOMS</option>
+                        <option value="OUTERWEAR">OUTERWEAR</option>
+                        <option value="ACCESSORIES">ACCESSORIES</option>
+                        <option value="FOOTWEAR">FOOTWEAR</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>PRICE (DZD)</label>
+                    <input type="number" id="p-price" placeholder="8900" required>
+                </div>
+                <div class="form-group">
+                    <label>IMAGE SOURCE</label>
+                    <div class="image-toggle-container"
+                        style="display: flex; background: rgba(255,255,255,0.05); padding: 4px; border-radius: 8px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.1);">
+                        <button type="button" class="btn btn-mini product-img-mode active" data-mode="url"
+                            style="flex: 1; font-size: 0.6rem; border: none; border-radius: 6px; padding: 8px;">SOURCE
+                            URL</button>
+                        <button type="button" class="btn btn-mini product-img-mode" data-mode="upload"
+                            style="flex: 1; font-size: 0.6rem; border: none; border-radius: 6px; padding: 8px;">LOCAL
+                            UPLOAD</button>
+                    </div>
+
+                    <div id="p-img-url-wrapper">
+                        <input type="url" id="p-img" placeholder="HTTPS://GEAR-IMAGE.JPG" style="margin-bottom: 0;">
+                    </div>
+
+                    <div id="p-img-upload-wrapper" style="display: none;">
+                        <div class="upload-dropzone" id="image-dropzone"
+                            style="border: 2px border-dashed rgba(255,255,255,0.1); border-radius: 8px; padding: 25px 15px; text-align: center; cursor: pointer; transition: all 0.3s ease; position: relative; background: rgba(255,255,255,0.02);">
+                            <input type="file" id="p-img-file" accept="image/*"
+                                style="opacity: 0; position: absolute; inset: 0; cursor: pointer; width: 100%; height: 100%;">
+                            <div style="pointer-events: none;">
+                                <i class="fa-solid fa-cloud-arrow-up"
+                                    style="font-size: 1.4rem; color: var(--accent); margin-bottom: 10px; opacity: 0.8;"></i>
+                                <p
+                                    style="font-size: 0.65rem; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px;">
+                                    DRAG GEAR OR <span class="accent">BROWSE</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="p-img-preview-container"
+                        style="margin-top: 15px; display: none; text-align: center; border: 1px solid rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; background: rgba(0,0,0,0.2);">
+                        <p style="font-size: 0.6rem; opacity: 0.5; margin-bottom: 8px; text-transform: uppercase;">
+                            PREVIEW</p>
+                        <div
+                            style="width: 100%; max-width: 150px; height: auto; max-height: 150px; margin: 0 auto 10px; position: relative; border-radius: 6px; overflow: hidden; border: 1px solid var(--accent); box-shadow: 0 0 15px var(--accent-glow);">
+                            <img id="p-img-preview" src="" alt="PREVIEW"
+                                style="width: 100%; height: auto; max-height: 100%; object-fit: contain;">
+                        </div>
+                        <button type="button" id="remove-preview" class="btn btn-mini"
+                            style="margin-top: 5px; color: #ff4d4d; border-color: rgba(255,77,77,0.2); font-size: 0.55rem;">REMOVE
+                            IMAGE</button>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="btn btn-outline btn-full modal-close-btn">CANCEL</button>
+                    <button type="submit" class="btn btn-primary btn-full" id="product-save-btn">SAVE PRODUCT</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+        <div class="about-bg"></div>
+        <div class="container about-content">
+            <h2 class="about-title scale-up">MORE THAN A BRAND.<br><span class="accent">A MOVEMENT.</span></h2>
+            <p class="about-text">Born in the heart of urban Algiers, FKstore16 merges avant-garde design with raw
+                street culture. We don't just follow trendsâ€”we redefine them for the next generation.</p>
+            <div class="about-stats">
+                <div class="stat">
+                    <i class="fa-solid fa-users-rays"
+                        style="color: var(--bg); font-size: 1.8rem; margin-bottom: 1rem; display: block;"></i>
+                    <span class="stat-num">100K+</span>
+                    <span class="stat-label">COMMUNITY</span>
+                </div>
+                <div class="stat">
+                    <i class="fa-solid fa-star"
+                        style="color: #ffcc00; font-size: 1.8rem; margin-bottom: 1rem; display: block;"></i>
+                    <span class="stat-num">4.9/5</span>
+                    <span class="stat-label">RATING</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">BEST <span class="accent">REVIEWS</span></h2>
+                <p class="section-desc">Top feedback from our community.</p>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial-track">
+                    <!-- Dynamic clusters will be injected here -->
+                    <div class="testimonial-group">
+                        <p style="padding: 2rem; opacity: 0.5;">LOADING TESTIMONIALS...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wishlist View -->
+    <section id="wishlist" class="wishlist-view section view">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">YOUR <span class="accent">WISHLIST</span></h2>
+                <p class="section-desc">Curated items reserved for later.</p>
+            </div>
+            <div class="wishlist-grid" id="wishlist-grid">
+                <!-- Wishlist items rendered here -->
+            </div>
+            <div class="wishlist-empty" id="wishlist-empty">
+                <div class="wishlist-empty-icon"><i class="fa-regular fa-heart"></i></div>
+                <h3>Your Wishlist is Empty</h3>
+                <p>Start adding your favorite pieces from the catalog.</p>
+                <a href="#shop" class="btn btn-primary"><i class="fa-solid fa-bag-shopping"></i> EXPLORE SHOP</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="faq-header">
+                <h2 class="faq-title">QUESTIONS & ANSWERS</h2>
+            </div>
+            <div class="faq-layout">
+                <div class="faq-image-col">
+                    <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=85&w=1200" 
+                         alt="Fashion" 
+                         class="faq-image">
+                </div>
+                <div class="faq-accordion-col">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Delivery Time</span>
+                            <i class="fa-solid fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Delivery usually takes between 1â€“3 business days depending on your location.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Payment Method</span>
+                            <i class="fa-solid fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Cash on delivery. Pay only when you receive your order.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>How do I track my order?</span>
+                            <i class="fa-solid fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>After placing your order, our team will contact you and provide updates regarding your delivery.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Shipping Cost</span>
+                            <i class="fa-solid fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Shipping costs vary depending on the destination and will be confirmed during order processing.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Can I exchange a product?</span>
+                            <i class="fa-solid fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes. Contact us after receiving your order and our team will assist you with the exchange process.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="https://www.image2url.com/r2/default/images/1780823718513-f2076ca3-428b-4a7c-a9cf-171f39aeee12.jpg"
+                        alt="FKstore16" class="logo-img" style="max-height: 90px;">
+                </div>
+                <p>Pioneering the future of Algerian streetwear. Built for those who refuse to stay in the shadows.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/fk_store16/" target="_blank" rel="noopener noreferrer"
+                        aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@fkstore.16" target="_blank" rel="noopener noreferrer"
+                        aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-nav">
+                <h4>QUICK LINKS</h4>
+                <ul>
+                    <li><a href="/">HOME</a></li>
+                    <li><a href="/shop">COLLECTIONS</a></li>
+                    <li><a href="/#about">THE MOVEMENT</a></li>
+                    <li><a href="#reviews">REVIEWS</a></li>
+                    <li><a href="#admin-gate" class="admin-access-link">ADMIN ACCESS</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>CONTACT</h4>
+                <p>contact@fkstore16.dz</p>
+                <p>Algiers, Algeria</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 FKstore16 BOUTIQUE ONLINE. ALL RIGHTS RESERVED.</p>
+            <p>DESIGNED BY <a class="portfolio-link" href="https://sehabiissam.github.io/sehabiissam-portfolio/leon.html" target="_blank" rel="noopener noreferrer">SEHABI ISSAM </a><span class="small-text">
+                <br>
+                (CLICK AT THE NAME TO VISIT MY PORTFOLIO)</span>.</p>
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script type="module" src="script.js"></script>
+
+</body>
+
+</html>

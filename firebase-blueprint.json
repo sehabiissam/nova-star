@@ -1,0 +1,113 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Fashion item sold in the store",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "img": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "pending", "rejected"] },
+        "deleted": { "type": "boolean" },
+        "deletedAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "price", "img", "category", "createdAt"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer purchase record",
+      "type": "object",
+      "properties": {
+        "customer": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "email": { "type": "string" },
+            "phone": { "type": "string" },
+            "address": { "type": "string" }
+          },
+          "required": ["name", "email", "address"]
+        },
+        "items": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "total": { "type": "number" },
+        "status": {
+          "type": "string",
+          "enum": ["PENDING", "PROCESSING", "COMPLETED", "CANCELLED"]
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["customer", "items", "total", "status", "createdAt"]
+    },
+    "Log": {
+      "title": "System Log",
+      "description": "Activity log for events",
+      "type": "object",
+      "properties": {
+        "productName": { "type": "string" },
+        "price": { "type": "number" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "type": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["timestamp", "type", "status"]
+    },
+    "User": {
+      "title": "User Profile",
+      "description": "User account and roles",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "customer"] }
+      },
+      "required": ["email", "role"]
+    },
+    "Review": {
+      "title": "Product Review",
+      "description": "User feedback on a product",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "rating": { "type": "number", "minimum": 1, "maximum": 5 },
+        "message": { "type": "string" },
+        "avatar": { "type": ["string", "null"] },
+        "isBest": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["PENDING", "PUBLISHED", "REJECTED"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "rating", "message", "status", "isBest", "createdAt"]
+    }
+  },
+  "firestore": {
+    "products": {
+      "schema": "Product",
+      "description": "Collection of available products"
+    },
+    "orders": {
+      "schema": "Order",
+      "description": "Collection of customer orders"
+    },
+    "logs": {
+      "schema": "Log",
+      "description": "System activity logs"
+    },
+    "trash": {
+      "schema": "Product",
+      "description": "Deleted products stored for potential recovery"
+    },
+    "reviews": {
+      "schema": "Review",
+      "description": "Customer feedback for moderation"
+    },
+    "users": {
+        "schema": "User",
+        "description": "User profiles and roles"
+    }
+  }
+}

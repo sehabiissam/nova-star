@@ -1,0 +1,6 @@
+﻿{
+  "name": "JWS CLOTHING DZ - Luxury Futuristic Streetwear",
+  "description": "Premium Algerian fashion brand featuring futuristic urban aesthetic, premium craftsmanship, and high-end streetwear.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

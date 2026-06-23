@@ -1,0 +1,135 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && 
+             request.auth.token.email == 'sehabiissam8@gmail.com';
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Products
+    match /products/{productId} {
+      allow read: if true;
+      allow create: if isAdmin() && isValidProduct(incoming(), false);
+      allow update: if isAdmin() && isValidProduct(incoming(), true);
+      allow delete: if isAdmin();
+      
+      function isValidProduct(data, isUpdate) {
+        let requiredKeys = ['name', 'price', 'img', 'category', 'createdAt'];
+        let hasRequired = isUpdate || (data.keys().hasAll(requiredKeys) && data.keys().size() == 5);
+        
+        return hasRequired &&
+               (!data.keys().contains('name') || (data.name is string && data.name.size() > 0 && data.name.size() <= 200)) &&
+               (!data.keys().contains('price') || (data.price is number && data.price >= 0)) &&
+               (!data.keys().contains('img') || (data.img is string && data.img.size() > 0 && data.img.size() <= 1500)) &&
+               (!data.keys().contains('category') || (data.category is string)) &&
+               (!data.keys().contains('createdAt') || (data.createdAt is string));
+      }
+    }
+
+    // Trash
+    match /trash/{productId} {
+      allow read, write: if isAdmin();
+    }
+
+    // Orders
+    match /orders/{orderId} {
+      // Allow customers to create orders and read their own (if they were authenticated, but here it's public for "stability")
+      // The user wants "working checkout" and "previously working system".
+      // Usually, checkout allows public write (create) but restricted read.
+      allow create: if isValidOrder(incoming());
+      allow read, update, delete: if isAdmin();
+
+      function isValidOrder(data) {
+        return data.keys().hasAll(['customer', 'items', 'total', 'status', 'createdAt']) &&
+               data.customer is map &&
+               data.items is list && data.items.size() > 0 &&
+               data.total is number &&
+               data.status in ['PENDING', 'PROCESSING', 'COMPLETED', 'CANCELLED'] &&
+               data.createdAt is string;
+      }
+    }
+
+    // Logs
+    match /logs/{logId} {
+      allow read, list, create: if isAdmin();
+      allow update: if false;
+      allow delete: if isAdmin();
+    }
+
+    // Reviews
+    match /reviews/{reviewId} {
+      allow read: if (resource.data.status == 'PUBLISHED') || isAdmin();
+      allow create: if isValidReview(incoming());
+      allow update, delete: if isAdmin();
+
+      function isValidReview(data) {
+        return data.keys().hasAll(['name', 'rating', 'message', 'status', 'createdAt', 'isBest']) &&
+               data.status == 'PENDING' &&
+               data.rating >= 1 && data.rating <= 5 &&
+               data.isBest == false &&
+               data.name is string && data.name.size() > 0 &&
+               data.message is string && data.message.size() > 0 &&
+               (!data.keys().contains('avatar') || (data.avatar == null || data.avatar is string));
+      }
+    }
+
+    // Categories
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow create, update: if isAdmin() && isValidCategory(incoming());
+      allow delete: if isAdmin();
+
+      function isValidCategory(data) {
+        return data.name is string && data.name.size() > 0 && data.name.size() <= 100 &&
+               (!data.keys().contains('image') || (data.image == null || data.image is string)) &&
+               (!data.keys().contains('createdAt') || data.createdAt is string);
+      }
+    }
+
+    // Users
+    match /users/{userId} {
+      allow read: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow create: if isSignedIn() && request.auth.uid == userId;
+      allow update: if isAdmin();
+    }
+
+    // Newsletter Subscribers
+    // Public can create (subscribe), admin can read/list/delete
+    match /newsletter_subscribers/{subscriberId} {
+      allow read: if isAdmin();
+      allow create: if request.resource.data.email is string &&
+                       request.resource.data.email.size() > 0 &&
+                       request.resource.data.email.matches('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$');
+      allow delete: if isAdmin();
+      allow update: if false;
+      allow list: if isAdmin();
+    }
+
+    // Connectivity Test
+    match /test/connection {
+      allow read: if true;
+    }
+  }
+}
