@@ -1,7 +1,6 @@
 ﻿/**
- * CONFIGURABLE BRAND TEMPLATE SYSTEM
- * Reads all branding from brand-config.js
- * Change ONLY brand-config.js to rebrand.
+ * ABOUT:ARCHIVE | LUXURY STREETWEAR 2026
+ * MAIN SCRIPT
  */
 
 import { initializeApp } from "firebase/app";
@@ -32,9 +31,40 @@ import {
 } from "firebase/firestore";
 import firebaseConfig from "./firebase-applet-config.json";
 
-// BRAND_CONFIG is loaded from brand-config.js via <script> tag.
-// This reference ensures it's available even if the config script hasn't loaded.
-const BRAND_CONFIG = window.BRAND_CONFIG || {};
+const BRAND_CONFIG = window.BRAND_CONFIG || {
+  name: "ABOUT:ARCHIVE",
+  pageTitle: "ABOUT:ARCHIVE | Luxury Streetwear",
+  logoUrl: "https://www.image2url.com/r2/default/images/1781946740849-b2f68831-885b-4ad4-bc5c-ce779e08f796.jpg",
+  logoAlt: "ABOUT:ARCHIVE logo",
+  hero: {
+    badge: "EST. 2026 / ALGERIA",
+    backgroundImage: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=85&w=1920",
+    titleLine1: "FUTURE OF",
+    titleLine2: "STREETWEAR",
+    subtitle: "Redefining urban luxury through bold design, premium craftsmanship, and a vision born for the next era."
+  },
+  social: {
+    instagram: "https://www.instagram.com/about____archive/",
+    tiktok: "https://www.tiktok.com/@about__archive"
+  },
+  contactEmail: "contact@aboutarchive.com",
+  location: "Algiers, Algeria",
+  about: {
+    title: "MORE THAN A BRAND. A MOVEMENT.",
+    text: "Born in the heart of urban Algiers, ABOUT:ARCHIVE merges avant-garde design with raw street culture. We don't just follow trends—we redefine them for the next generation."
+  },
+  footer: {
+    copyright: "© 2026 ABOUT:ARCHIVE BOUTIQUE ONLINE. ALL RIGHTS RESERVED.",
+    designerName: "SEHABI ISSAM",
+    designerUrl: "https://sehabiissam.github.io/sehabiissam-portfolio/leon.html"
+  },
+  storageKeyPrefix: "about-archive-store",
+  currency: {
+    code: "DZD",
+    label: "Algerian Dinar"
+  },
+  productDescriptionFallback: "Premium quality streetwear essential from the collection. Built for those who refuse to stay in the shadows. Each piece is crafted with precision and designed for the future.",
+};
 
 // Initialize Firebase
 console.log("[SYSTEM] INITIALIZING FIREBASE MAINFRAME...");
@@ -67,138 +97,84 @@ document.addEventListener("DOMContentLoaded", () => {
   const DELIVERY_FEE = Number(BRAND_CONFIG.deliveryFee || 500);
 
   const formatPrice = (value) => `${Number(value || 0).toLocaleString()} ${currencyCode}`;
-
-  /**
-   * applyBrandConfig() — Reads ALL branding from BRAND_CONFIG and applies it to the DOM.
-   * This is the central branding engine. Edit ONLY brand-config.js to change branding.
-   * No manual changes in components are required.
-   */
   const applyBrandConfig = () => {
-    const C = BRAND_CONFIG;
+    document.title = BRAND_CONFIG.pageTitle || BRAND_CONFIG.name || document.title;
 
-    // ── Page Title & SEO Meta ──────────────────────
-    document.title = C.pageTitle || C.seoTitle || C.name || document.title;
-
-    const setMetaContent = (id, value) => {
-      const el = document.getElementById(id);
-      if (el && value) el.setAttribute('content', value);
-    };
-
-    setMetaContent('meta-description', C.metaDescription);
-    setMetaContent('og-title', C.ogTitle || C.pageTitle);
-    setMetaContent('og-description', C.ogDescription);
-    setMetaContent('og-image', C.ogImage);
-    setMetaContent('og-url', C.ogUrl);
-    setMetaContent('twitter-title', C.ogTitle || C.pageTitle);
-    setMetaContent('twitter-description', C.ogDescription);
-    setMetaContent('twitter-image', C.ogImage);
-    setMetaContent('twitter-handle', C.twitterHandle);
-
-    // ── Loading Screen Logo ─────────────────────────
-    const loadingLogo = document.querySelector('.loading-logo');
-    if (loadingLogo) {
-      loadingLogo.src = C.logoUrl;
-      loadingLogo.alt = C.logoAlt || C.name;
-    }
-
-    // ── Nav Logo ────────────────────────────────────
     const navLogo = document.getElementById('nav-logo-image');
     if (navLogo) {
-      navLogo.src = C.logoUrl;
-      navLogo.alt = C.logoAlt || C.name;
+      navLogo.src = BRAND_CONFIG.logoUrl;
+      navLogo.alt = BRAND_CONFIG.logoAlt || BRAND_CONFIG.name;
     }
 
-    // ── Mobile Menu Logo ────────────────────────────
     const mobileLogo = document.querySelector('.mobile-menu-logo');
     if (mobileLogo) {
-      mobileLogo.src = C.logoUrl;
-      mobileLogo.alt = C.logoAlt || C.name;
+      mobileLogo.src = BRAND_CONFIG.logoUrl;
+      mobileLogo.alt = BRAND_CONFIG.logoAlt || BRAND_CONFIG.name;
     }
 
-    // ── Hero Background ─────────────────────────────
     const heroBg = document.querySelector('.hero-bg-image');
-    if (heroBg && C.hero) {
-      heroBg.src = C.hero.backgroundImage || heroBg.src;
-      heroBg.alt = `${C.name} Collection`;
+    if (heroBg) {
+      heroBg.src = BRAND_CONFIG.hero.backgroundImage || heroBg.src;
+      heroBg.alt = `${BRAND_CONFIG.name} Collection`;
     }
 
-    // ── Hero Text ───────────────────────────────────
     const heroBadge = document.getElementById('hero-badge-text');
-    if (heroBadge && C.hero) heroBadge.textContent = C.hero.badge || heroBadge.textContent;
+    if (heroBadge) heroBadge.textContent = BRAND_CONFIG.hero.badge || heroBadge.textContent;
 
     const heroLine1 = document.getElementById('hero-title-line1');
-    if (heroLine1 && C.hero) heroLine1.textContent = C.hero.titleLine1 || heroLine1.textContent;
+    if (heroLine1) heroLine1.textContent = BRAND_CONFIG.hero.titleLine1 || heroLine1.textContent;
 
     const heroLine2 = document.getElementById('hero-title-line2');
-    if (heroLine2 && C.hero) heroLine2.textContent = C.hero.titleLine2 || heroLine2.textContent;
+    if (heroLine2) heroLine2.textContent = BRAND_CONFIG.hero.titleLine2 || heroLine2.textContent;
 
     const heroSubtitle = document.getElementById('hero-subtitle');
-    if (heroSubtitle && C.hero) heroSubtitle.textContent = C.hero.subtitle || heroSubtitle.textContent;
+    if (heroSubtitle) heroSubtitle.textContent = BRAND_CONFIG.hero.subtitle || heroSubtitle.textContent;
 
-    // ── About Section ───────────────────────────────
     const aboutTitle = document.getElementById('about-title');
-    if (aboutTitle && C.about) aboutTitle.innerHTML = C.about.title.replace(/\n/g, '<br>');
+    if (aboutTitle) aboutTitle.innerHTML = BRAND_CONFIG.about.title.replace(/\n/g, '<br>');
 
     const aboutText = document.getElementById('about-text');
-    if (aboutText && C.about) aboutText.textContent = C.about.text || aboutText.textContent;
+    if (aboutText) aboutText.textContent = BRAND_CONFIG.about.text || aboutText.textContent;
 
-    // ── Footer Logo ─────────────────────────────────
     const footerLogo = document.getElementById('footer-logo-image');
     if (footerLogo) {
-      footerLogo.src = C.logoUrl;
-      footerLogo.alt = C.logoAlt || C.name;
+      footerLogo.src = BRAND_CONFIG.logoUrl;
+      footerLogo.alt = BRAND_CONFIG.logoAlt || BRAND_CONFIG.name;
     }
 
-    // ── Footer Text ─────────────────────────────────
     const footerDescription = document.getElementById('footer-description');
-    if (footerDescription && C.footer) footerDescription.textContent = C.footer.description || footerDescription.textContent;
+    if (footerDescription) footerDescription.textContent = BRAND_CONFIG.footer.description || footerDescription.textContent;
 
     const footerEmail = document.getElementById('footer-contact-email');
-    if (footerEmail) footerEmail.textContent = C.contactEmail || footerEmail.textContent;
+    if (footerEmail) footerEmail.textContent = BRAND_CONFIG.contactEmail || footerEmail.textContent;
 
     const footerLocation = document.getElementById('footer-contact-location');
-    if (footerLocation) footerLocation.textContent = C.location || footerLocation.textContent;
+    if (footerLocation) footerLocation.textContent = BRAND_CONFIG.location || footerLocation.textContent;
 
     const footerCopyright = document.getElementById('footer-copyright');
-    if (footerCopyright && C.footer) footerCopyright.textContent = C.footer.copyright || footerCopyright.textContent;
+    if (footerCopyright) footerCopyright.textContent = BRAND_CONFIG.footer.copyright || footerCopyright.textContent;
 
-    const footerDesignerLink = document.querySelector('.portfolio-link');
-    if (footerDesignerLink && C.footer) {
-      footerDesignerLink.href = C.footer.designerUrl || footerDesignerLink.href;
-      footerDesignerLink.textContent = C.footer.designerName || footerDesignerLink.textContent;
-    }
-
-    // ── Social Links ────────────────────────────────
     const instagramLink = document.getElementById('footer-instagram-link');
-    if (instagramLink && C.social) instagramLink.href = C.social.instagram || '#';
+    if (instagramLink) instagramLink.href = BRAND_CONFIG.social.instagram || '#';
 
     const tiktokLink = document.getElementById('footer-tiktok-link');
-    if (tiktokLink && C.social) tiktokLink.href = C.social.tiktok || '#';
+    if (tiktokLink) tiktokLink.href = BRAND_CONFIG.social.tiktok || '#';
 
     const whatsappLink = document.getElementById('footer-whatsapp-link');
-    if (whatsappLink && C.social) whatsappLink.href = C.social.whatsapp || '#';
+    if (whatsappLink) whatsappLink.href = BRAND_CONFIG.social.whatsapp || '#';
 
-    const navInsta = document.getElementById('nav-instagram-link');
-    if (navInsta && C.social) navInsta.href = C.social.instagram || '#';
-
-    const navTikTok = document.getElementById('nav-tiktok-link');
-    if (navTikTok && C.social) navTikTok.href = C.social.tiktok || '#';
-
-    // ── Mobile Menu Brand ───────────────────────────
     const mobileBrandTitle = document.getElementById('mobile-menu-brand-title');
-    if (mobileBrandTitle) mobileBrandTitle.textContent = `${C.name} © ${new Date().getFullYear()}`;
+    if (mobileBrandTitle) mobileBrandTitle.textContent = `${BRAND_CONFIG.name} © ${new Date().getFullYear()}`;
 
     const mobileBrandTagline = document.getElementById('mobile-menu-brand-tagline');
-    if (mobileBrandTagline && C.footer) mobileBrandTagline.textContent = C.footer.description || mobileBrandTagline.textContent;
+    if (mobileBrandTagline) mobileBrandTagline.textContent = BRAND_CONFIG.footer.description || mobileBrandTagline.textContent;
 
-    // ── Product Modal ───────────────────────────────
     const productModalDescription = document.getElementById('product-modal-description');
-    if (productModalDescription) productModalDescription.textContent = `Register new gear into the ${C.name} ecosystem.`;
+    if (productModalDescription) productModalDescription.textContent = `Register new gear into the ${BRAND_CONFIG.name} ecosystem.`;
 
     const productPriceLabel = document.getElementById('product-price-label');
     if (productPriceLabel) productPriceLabel.textContent = `PRICE (${currencyCode})`;
 
-    // ── Static Price Displays ───────────────────────
     const subtotalElStatic = document.getElementById('subtotal');
     const totalPriceElStatic = document.getElementById('total-price');
     const checkoutSummaryTotal = document.getElementById('checkout-summary-total');
