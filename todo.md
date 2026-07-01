@@ -1,4 +1,4 @@
-﻿# Steezy Redesign - Task Complete ✔
+﻿# Nova Star Redesign - Task Complete ✔
 
 ## Brand & Text Updates
 - [x] Analyze project structure

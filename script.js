@@ -1,5 +1,5 @@
 ﻿/**
- * ABOUT:ARCHIVE | LUXURY STREETWEAR 2026
+ * Nova Star | LUXURY STREETWEAR 2026
  * MAIN SCRIPT
  */
 
@@ -31,41 +31,6 @@ import {
 } from "firebase/firestore";
 import firebaseConfig from "./firebase-applet-config.json";
 
-const BRAND_CONFIG = window.BRAND_CONFIG || {
-  name: "ABOUT:ARCHIVE",
-  pageTitle: "ABOUT:ARCHIVE | Luxury Streetwear",
-  logoUrl: "https://www.image2url.com/r2/default/images/1781946740849-b2f68831-885b-4ad4-bc5c-ce779e08f796.jpg",
-  logoAlt: "ABOUT:ARCHIVE logo",
-  hero: {
-    badge: "EST. 2026 / ALGERIA",
-    backgroundImage: "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=85&w=1920",
-    titleLine1: "FUTURE OF",
-    titleLine2: "STREETWEAR",
-    subtitle: "Redefining urban luxury through bold design, premium craftsmanship, and a vision born for the next era."
-  },
-  social: {
-    instagram: "https://www.instagram.com/about____archive/",
-    tiktok: "https://www.tiktok.com/@about__archive"
-  },
-  contactEmail: "contact@aboutarchive.com",
-  location: "Algiers, Algeria",
-  about: {
-    title: "MORE THAN A BRAND. A MOVEMENT.",
-    text: "Born in the heart of urban Algiers, ABOUT:ARCHIVE merges avant-garde design with raw street culture. We don't just follow trends—we redefine them for the next generation."
-  },
-  footer: {
-    copyright: "© 2026 ABOUT:ARCHIVE BOUTIQUE ONLINE. ALL RIGHTS RESERVED.",
-    designerName: "SEHABI ISSAM",
-    designerUrl: "https://sehabiissam.github.io/sehabiissam-portfolio/leon.html"
-  },
-  storageKeyPrefix: "about-archive-store",
-  currency: {
-    code: "DZD",
-    label: "Algerian Dinar"
-  },
-  productDescriptionFallback: "Premium quality streetwear essential from the collection. Built for those who refuse to stay in the shadows. Each piece is crafted with precision and designed for the future.",
-};
-
 // Initialize Firebase
 console.log("[SYSTEM] INITIALIZING FIREBASE MAINFRAME...");
 const app = initializeApp(firebaseConfig);
@@ -91,99 +56,7 @@ testConnection();
 document.addEventListener("DOMContentLoaded", () => {
   // ===== THEME SYSTEM =====
   const themeToggle = document.getElementById('theme-toggle');
-  const STORAGE_KEY = `${BRAND_CONFIG.storageKeyPrefix}-theme`;
-  const currencyCode = BRAND_CONFIG.currency?.code || "DZD";
-  const currencyLabel = BRAND_CONFIG.currency?.label || "Algerian Dinar";
-  const DELIVERY_FEE = Number(BRAND_CONFIG.deliveryFee || 500);
-
-  const formatPrice = (value) => `${Number(value || 0).toLocaleString()} ${currencyCode}`;
-  const applyBrandConfig = () => {
-    document.title = BRAND_CONFIG.pageTitle || BRAND_CONFIG.name || document.title;
-
-    const navLogo = document.getElementById('nav-logo-image');
-    if (navLogo) {
-      navLogo.src = BRAND_CONFIG.logoUrl;
-      navLogo.alt = BRAND_CONFIG.logoAlt || BRAND_CONFIG.name;
-    }
-
-    const mobileLogo = document.querySelector('.mobile-menu-logo');
-    if (mobileLogo) {
-      mobileLogo.src = BRAND_CONFIG.logoUrl;
-      mobileLogo.alt = BRAND_CONFIG.logoAlt || BRAND_CONFIG.name;
-    }
-
-    const heroBg = document.querySelector('.hero-bg-image');
-    if (heroBg) {
-      heroBg.src = BRAND_CONFIG.hero.backgroundImage || heroBg.src;
-      heroBg.alt = `${BRAND_CONFIG.name} Collection`;
-    }
-
-    const heroBadge = document.getElementById('hero-badge-text');
-    if (heroBadge) heroBadge.textContent = BRAND_CONFIG.hero.badge || heroBadge.textContent;
-
-    const heroLine1 = document.getElementById('hero-title-line1');
-    if (heroLine1) heroLine1.textContent = BRAND_CONFIG.hero.titleLine1 || heroLine1.textContent;
-
-    const heroLine2 = document.getElementById('hero-title-line2');
-    if (heroLine2) heroLine2.textContent = BRAND_CONFIG.hero.titleLine2 || heroLine2.textContent;
-
-    const heroSubtitle = document.getElementById('hero-subtitle');
-    if (heroSubtitle) heroSubtitle.textContent = BRAND_CONFIG.hero.subtitle || heroSubtitle.textContent;
-
-    const aboutTitle = document.getElementById('about-title');
-    if (aboutTitle) aboutTitle.innerHTML = BRAND_CONFIG.about.title.replace(/\n/g, '<br>');
-
-    const aboutText = document.getElementById('about-text');
-    if (aboutText) aboutText.textContent = BRAND_CONFIG.about.text || aboutText.textContent;
-
-    const footerLogo = document.getElementById('footer-logo-image');
-    if (footerLogo) {
-      footerLogo.src = BRAND_CONFIG.logoUrl;
-      footerLogo.alt = BRAND_CONFIG.logoAlt || BRAND_CONFIG.name;
-    }
-
-    const footerDescription = document.getElementById('footer-description');
-    if (footerDescription) footerDescription.textContent = BRAND_CONFIG.footer.description || footerDescription.textContent;
-
-    const footerEmail = document.getElementById('footer-contact-email');
-    if (footerEmail) footerEmail.textContent = BRAND_CONFIG.contactEmail || footerEmail.textContent;
-
-    const footerLocation = document.getElementById('footer-contact-location');
-    if (footerLocation) footerLocation.textContent = BRAND_CONFIG.location || footerLocation.textContent;
-
-    const footerCopyright = document.getElementById('footer-copyright');
-    if (footerCopyright) footerCopyright.textContent = BRAND_CONFIG.footer.copyright || footerCopyright.textContent;
-
-    const instagramLink = document.getElementById('footer-instagram-link');
-    if (instagramLink) instagramLink.href = BRAND_CONFIG.social.instagram || '#';
-
-    const tiktokLink = document.getElementById('footer-tiktok-link');
-    if (tiktokLink) tiktokLink.href = BRAND_CONFIG.social.tiktok || '#';
-
-    const whatsappLink = document.getElementById('footer-whatsapp-link');
-    if (whatsappLink) whatsappLink.href = BRAND_CONFIG.social.whatsapp || '#';
-
-    const mobileBrandTitle = document.getElementById('mobile-menu-brand-title');
-    if (mobileBrandTitle) mobileBrandTitle.textContent = `${BRAND_CONFIG.name} © ${new Date().getFullYear()}`;
-
-    const mobileBrandTagline = document.getElementById('mobile-menu-brand-tagline');
-    if (mobileBrandTagline) mobileBrandTagline.textContent = BRAND_CONFIG.footer.description || mobileBrandTagline.textContent;
-
-    const productModalDescription = document.getElementById('product-modal-description');
-    if (productModalDescription) productModalDescription.textContent = `Register new gear into the ${BRAND_CONFIG.name} ecosystem.`;
-
-    const productPriceLabel = document.getElementById('product-price-label');
-    if (productPriceLabel) productPriceLabel.textContent = `PRICE (${currencyCode})`;
-
-    const subtotalElStatic = document.getElementById('subtotal');
-    const totalPriceElStatic = document.getElementById('total-price');
-    const checkoutSummaryTotal = document.getElementById('checkout-summary-total');
-    if (subtotalElStatic) subtotalElStatic.textContent = formatPrice(0);
-    if (totalPriceElStatic) totalPriceElStatic.textContent = formatPrice(500);
-    if (checkoutSummaryTotal) checkoutSummaryTotal.textContent = formatPrice(0);
-  };
-
-  applyBrandConfig();
+  const STORAGE_KEY = 'steezy-store-theme';
   
   // Apply theme immediately to prevent flash - default to light
   const savedTheme = localStorage.getItem(STORAGE_KEY) || 'light';
@@ -575,7 +448,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // 2.1 SECURITY LAYER / FIREWALL
-  const ADMIN_EMAIL = BRAND_CONFIG.adminEmail || "sehabiissam8@gmail.com";
+  const ADMIN_EMAIL = "sehabiissam8@gmail.com"; // Hardcoded admin for this project
 
   const Firewall = {
     isAuthenticated: () => {
@@ -1075,14 +948,14 @@ if (Firewall.isAdmin()) {
               </div>
               <div class="product-info">
                 <div class="product-info-left">
-                  <div class="product-brand">${getCategoryLabel(p.categoryId, p.category) || BRAND_CONFIG.name}</div>
+                  <div class="product-brand">${getCategoryLabel(p.categoryId, p.category) || "Nova Star"}</div>
                   <div class="product-name">${p.name}</div>
                   <div class="product-category-pill">${getCategoryLabel(p.categoryId, p.category) || "Essential"}</div>
-                  <div class="product-desc">${p.description || BRAND_CONFIG.productDescriptionFallback}</div>
+                  <div class="product-desc">Premium quality streetwear essential from the Nova Star collection.</div>
                 </div>
                 <div class="product-info-center">
-                  <div class="product-price">${formatPrice(p.price)}</div>
-                  <div class="product-price-label">${currencyLabel}</div>
+                  <div class="product-price">${p.price.toLocaleString()} DA</div>
+                  <div class="product-price-label">Algerian Dinar</div>
                 </div>
                 <div class="product-actions">
                   <button class="add-to-cart-btn" data-id="${p.id}">
@@ -1103,9 +976,9 @@ if (Firewall.isAdmin()) {
                 </button>
               </div>
               <div class="product-info">
-                <div class="product-brand">${getCategoryLabel(p.categoryId, p.category) || BRAND_CONFIG.name}</div>
+                <div class="product-brand">${getCategoryLabel(p.categoryId, p.category) || "Nova Star"}</div>
                 <div class="product-name">${p.name}</div>
-                <div class="product-price">${formatPrice(p.price)}</div>
+                <div class="product-price">${p.price.toLocaleString()} DZD</div>
                 <div class="product-card-btns">
                   <button class="add-to-cart-btn" data-id="${p.id}">
                     <i class="fas fa-shopping-cart"></i> Add to Cart
@@ -1563,7 +1436,7 @@ if (Firewall.isAdmin()) {
                         <img src="${prod.img}" alt="${prod.name}" style="width:50px;height:50px;object-fit:cover;border-radius:6px;border:1px solid rgba(255,255,255,0.08);">
                         <div>
                             <strong>${prod.name}</strong>
-                            <div style="font-size:0.75rem;opacity:0.65;">${formatPrice(prod.price)}</div>
+                            <div style="font-size:0.75rem;opacity:0.65;">${prod.price.toLocaleString()} DZD</div>
                         </div>
                     </div>
                     <button class="btn btn-mini" style="min-width: 110px;" onclick="event.stopPropagation(); openEditProduct('${prod.id}'); document.getElementById('category-detail-modal').classList.remove('active');">EDIT</button>
@@ -1662,8 +1535,7 @@ if (Firewall.isAdmin()) {
   }
 
   // 4. CART SYSTEM
-  const CART_KEY = `${BRAND_CONFIG.storageKeyPrefix}_cart`;
-  let cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+  let cart = JSON.parse(localStorage.getItem("steezy-store_cart") || "[]");
   const cartBadge = document.querySelector(".cart-count");
   const cartBadgeMobile = document.querySelector(".cart-count-mobile");
   const cartItemsList = document.getElementById("cart-items-list");
@@ -1673,7 +1545,7 @@ if (Firewall.isAdmin()) {
 
   // Save cart to localStorage
   const saveCart = () => {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    localStorage.setItem("steezy-store_cart", JSON.stringify(cart));
   };
 
   // Unified add to cart function
@@ -1715,8 +1587,8 @@ if (Firewall.isAdmin()) {
     if (cart.length === 0) {
       cartItemsList.innerHTML =
         '<p class="empty-msg">YOUR BAG IS EMPTY. START EXPLORING.</p>';
-      if (subtotalEl) subtotalEl.textContent = formatPrice(0);
-      if (totalEl) totalEl.textContent = formatPrice(500);
+      if (subtotalEl) subtotalEl.textContent = "0 DZD";
+      if (totalEl) totalEl.textContent = "500 DZD";
       return;
     }
     let subtotal = 0;
@@ -1731,7 +1603,7 @@ if (Firewall.isAdmin()) {
                     <img src="${item.img}" alt="${item.name}" class="cart-item-img">
                     <div class="cart-item-info">
                         <h4 class="cart-item-name">${item.name}</h4>
-                        <p class="cart-item-price">${formatPrice(item.price)}</p>
+                        <p class="cart-item-price">${item.price.toLocaleString()} DZD</p>
                         <button class="remove-btn" data-index="${index}"><i class="fa-solid fa-trash-can"></i> REMOVE FROM ENTRANCE</button>
                     </div>
                     <div class="cart-item-controls">
@@ -1743,9 +1615,9 @@ if (Firewall.isAdmin()) {
             `,
       );
     });
-    if (subtotalEl) subtotalEl.textContent = formatPrice(subtotal);
+    if (subtotalEl) subtotalEl.textContent = `${subtotal.toLocaleString()} DZD`;
     if (totalEl)
-      totalEl.textContent = formatPrice(subtotal + 500);
+      totalEl.textContent = `${(subtotal + 500).toLocaleString()} DZD`;
   };
 
   if (cartItemsList) {
@@ -1784,11 +1656,10 @@ if (Firewall.isAdmin()) {
   updateCartUI();
 
   // ============ WISHLIST SYSTEM ============
-  const WISHLIST_KEY = `${BRAND_CONFIG.storageKeyPrefix}_wishlist`;
-  let wishlist = JSON.parse(localStorage.getItem(WISHLIST_KEY) || "[]");
+  let wishlist = JSON.parse(localStorage.getItem("steezy-store_wishlist") || "[]");
 
   const saveWishlist = () => {
-    localStorage.setItem(WISHLIST_KEY, JSON.stringify(wishlist));
+    localStorage.setItem("steezy-store_wishlist", JSON.stringify(wishlist));
     const badge = document.getElementById("wishlist-badge");
     if (badge) badge.textContent = wishlist.length;
     syncWishlistUI();
@@ -1880,9 +1751,9 @@ if (Firewall.isAdmin()) {
             </button>
           </div>
           <div class="product-info">
-            <div class="product-brand">${item.category || BRAND_CONFIG.name}</div>
+            <div class="product-brand">${item.category || "Nova Star"}</div>
             <div class="product-name">${item.name}</div>
-            <div class="product-price">${formatPrice(item.price || 0)}</div>
+            <div class="product-price">${(item.price || 0).toLocaleString()} DZD</div>
             <button class="add-to-cart-btn wishlist-add-cart" data-id="${item.id}">
               <i class="fas fa-shopping-cart"></i>
               Add to Cart
@@ -2019,7 +1890,7 @@ if (Firewall.isAdmin()) {
                     <td data-label="IMG"><img src="${p.img}" class="admin-img-thumb" alt=""></td>
                     <td data-label="NAME">${p.name}</td>
                     <td data-label="CATEGORY">${getCategoryLabel(p.categoryId, p.category)}</td>
-                    <td data-label="PRICE">${formatPrice(p.price)}</td>
+                    <td data-label="PRICE">${p.price.toLocaleString()} DZD</td>
                     <td data-label="RECOMMENDED" class="desktop-only">
                         <label class="recommended-toggle" onclick="event.stopPropagation();">
                             <input type="checkbox" ${isRecommended ? 'checked' : ''} onchange="event.stopPropagation(); window.__toggleRecommended('${p.id}', this.checked)">
@@ -2207,7 +2078,7 @@ if (Firewall.isAdmin()) {
                   <span><i class="fa-solid fa-box"></i> ${totalItems} item${totalItems !== 1 ? 's' : ''}</span>
                 </div>
               </div>
-              <div class="order-compact-total">${formatPrice(o.total)}</div>
+              <div class="order-compact-total">${(o.total || 0).toLocaleString()} DZD</div>
               <div class="order-compact-status">
                 <span class="status-badge status-${statusLower}">${o.status || "PENDING"}</span>
                 <div class="order-compact-view-icon">
@@ -2269,7 +2140,7 @@ if (Firewall.isAdmin()) {
     
     // Fill total
     document.getElementById("dt-total-price").textContent =
-      formatPrice(order.total);
+      `${(order.total || 0).toLocaleString()} DZD`;
 
     // Fill status
     const statusEl = document.getElementById("dt-order-status");
@@ -2286,7 +2157,7 @@ if (Firewall.isAdmin()) {
                     <img src="${item.img}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);">
                     <div>
                         <p style="font-size: 0.75rem; font-weight: 700;">${item.name}</p>
-                        <p style="font-size: 0.6rem; opacity: 0.5;">${formatPrice(item.price)}</p>
+                        <p style="font-size: 0.6rem; opacity: 0.5;">${item.price.toLocaleString()} DZD</p>
                     </div>
                 </div>
                 <div style="text-align: right;">
@@ -2458,7 +2329,7 @@ if (Firewall.isAdmin()) {
               (log) => `
                         <tr>
                             <td>${log.productName || "SYSTEM"}</td>
-                            <td>${formatPrice(log.price)}</td>
+                            <td>${(log.price || 0).toLocaleString()} DZD</td>
                             <td>${log.timestamp ? new Date(log.timestamp).toLocaleString() : "N/A"}</td>
                             <td><span class="status-badge status-${(log.status || "unknown").toLowerCase()}">${log.status || "LOG"}</span></td>
                             <td>${log.type || "EVENT"}</td>
@@ -2522,7 +2393,7 @@ if (Firewall.isAdmin()) {
                     <tr id="trash-row-${p.id}" class="trash-row-trigger" data-id="${p.id}" data-name="${p.name}">
                         <td><img src="${p.img}" class="admin-img-thumb" alt=""></td>
                         <td>${p.name}</td>
-                        <td>${formatPrice(p.price)}</td>
+                        <td>${p.price.toLocaleString()} DZD</td>
                         <td>${new Date(p.deletedAt).toLocaleDateString()}</td>
                         <td>
                             <div class="desktop-actions">
@@ -3394,17 +3265,17 @@ if (Firewall.isAdmin()) {
         </div>
         <div class="product-view-details">
           <div>
-            <span class="product-view-brand">${BRAND_CONFIG.name}</span>
+            <span class="product-view-brand">Nova Star</span>
             <span class="product-view-category" style="margin-left: 1rem;">${categoryLabel}</span>
           </div>
           <h1 class="product-view-name">${product.name}</h1>
           <div>
-            <div class="product-view-price">${formatPrice(product.price)}</div>
-            <div class="product-view-price-label">${currencyLabel} — Tax Inclusive</div>
+            <div class="product-view-price">${priceStr} DZD</div>
+            <div class="product-view-price-label">Algerian Dinar — Tax Inclusive</div>
           </div>
           <div class="product-view-description">
             <div class="product-view-description-label">About This Item</div>
-            <div class="product-view-description-text">${product.description || BRAND_CONFIG.productDescriptionFallback}</div>
+            <div class="product-view-description-text">${product.description || "Premium quality streetwear essential from the Nova Star collection. Built for those who refuse to stay in the shadows. Each piece is crafted with precision and designed for the future."}</div>
           </div>
           <div class="product-view-qty">
             <label class="product-view-qty-label" for="pv-qty">Quantity</label>
@@ -3416,7 +3287,7 @@ if (Firewall.isAdmin()) {
           </div>
           <div class="product-view-actions">
             <button class="btn btn-primary" id="pv-add-to-cart">
-              <i class="fa-solid fa-cart-plus"></i> ADD TO CART - ${formatPrice(product.price)}
+              <i class="fa-solid fa-cart-plus"></i> ADD TO CART - ${priceStr} DZD
             </button>
             <button class="btn btn-outline buy-now-btn" id="pv-buy-now"">
               <i class="fa-solid fa-bolt"></i> BUY NOW
@@ -3462,7 +3333,7 @@ if (Firewall.isAdmin()) {
         addBtn.style.color = "black";
         addBtn.disabled = true;
         setTimeout(() => {
-          addBtn.innerHTML = `<i class="fa-solid fa-cart-plus"></i> ADD TO CART â€” ${formatPrice(product.price)}`;
+          addBtn.innerHTML = '<i class="fa-solid fa-cart-plus"></i> ADD TO CART â€” ${priceStr} DZD';
           addBtn.style.background = "";
           addBtn.style.color = "";
           addBtn.disabled = false;
@@ -3501,15 +3372,15 @@ if (Firewall.isAdmin()) {
 
     summaryItems.innerHTML = `
       <div class="checkout-summary-item">
-        <span class="item-name">${product.name} × ${quantity}</span>
-        <span class="item-price">${formatPrice(product.price * quantity)}</span>
+        <span class="item-name">${product.name} Ã— ${quantity}</span>
+        <span class="item-price">${(product.price * quantity).toLocaleString()} DZD</span>
       </div>
       <div class="checkout-summary-item" style="opacity: 0.6; font-size: 0.8rem;">
         <span>Delivery</span>
-        <span>${formatPrice(500)}</span>
+        <span>500 DZD</span>
       </div>
     `;
-    summaryTotal.textContent = formatPrice(total);
+    summaryTotal.textContent = `${total.toLocaleString()} DZD`;
     summaryDiv.style.display = "block";
 
     // Hide order-success, show form
@@ -3518,7 +3389,7 @@ if (Firewall.isAdmin()) {
 
     // Prefill with product info in summary
     const submitBtn = document.getElementById("checkout-submit-btn");
-    submitBtn.textContent = `BUY NOW â€” ${formatPrice(total)}`;
+    submitBtn.textContent = `BUY NOW â€” ${total.toLocaleString()} DZD`;
 
     // Open modal
     document.getElementById("checkout-modal").classList.add("active");
